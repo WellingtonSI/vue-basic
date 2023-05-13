@@ -33,21 +33,30 @@ onMounted( () => {
     console.log(user);
  }
 
- function remove(name){
-    const index = names.findIndex( name )
+ function remove(user){
+    const index = names.findIndex( name  => {
+       return name.firstName == user.firstName
+    })
+
+    names.splice(index, 1)
  }
 </script>
 
 <template>
 
+    <h1 class="font-bold text-3xl text-blue-900">Login</h1>
 
     <template v-if="names.length > 0">
         <ul>
             <li v-for ="name in names">{{ name.firstName }} - <button v-on:click="remove(name)">Remove</button> </li>
         </ul>
     </template>
-    <template v-if="user.email.length <= 0">Email Vazio</template>
+    <template v-else>Nenhum user encontrado</template>
+
+
+    <template v-if="user.email.length <= 0"><br>Email Vazio</template>
     <template v-else>Email: {{ user.email }}</template>
+    
 
 
     <form action="" @submit.prevent="login">
